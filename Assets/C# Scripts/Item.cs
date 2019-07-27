@@ -11,4 +11,10 @@ public class Item : MonoBehaviour {
         //inventoryImage.sprite = properties.sprite;
         //Debug.Log(inventoryImage.sprite);
 	}
+
+    public virtual void Use()
+    {
+        Debug.Log("Using " + properties.name);
+    }
+    //virtual означава, че може по-късно да бъде override-нат.
 }

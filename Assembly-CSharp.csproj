@@ -53,6 +53,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\C# Scripts\Equipment.cs" />
+     <Compile Include="Assets\C# Scripts\EquipmentController.cs" />
      <Compile Include="Assets\C# Scripts\FollowPlayer.cs" />
      <Compile Include="Assets\C# Scripts\Interactable.cs" />
      <Compile Include="Assets\C# Scripts\Inventory.cs" />

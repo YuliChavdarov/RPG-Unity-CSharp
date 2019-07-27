@@ -4,32 +4,61 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ItemSlot : MonoBehaviour {
 
-    public Image image;
-
+    public Image icon;
     // Благодарение на prefab-овете в Unity не се налага да търся поотделно всеки ItemIcon и да го раздавам
     // на съответния ItemSlot. Unity прави това като пусна на мястото на image в prefab-a обектът, от който
     // ще търси component Image - т.е. ItemIcon. Пускам ItemIcon, цъкам apply и готово. Много добре е измислено.
+
+    public Button removeButton;
 
     Item item;
 
 	// Use this for initialization
 	void Start () {
-
-		
+        //removeButton.interactable = false;
+        icon.enabled = false;
 	}
 
     public void AddItem(Item newItem)
     {
         item = newItem;
 
-        image.sprite = item.properties.sprite;
-        image.enabled = true;
+        icon.sprite = item.properties.sprite;
+        icon.enabled = true;
+        removeButton.interactable = true;
     }
 
-    public void RemoveItem()
+    public void ClearSlot()
     {
-        item = null;
-        image.sprite = null;
-        image.enabled = false;
+        icon.sprite = null;
+        icon.enabled = false;
+        removeButton.interactable = false;
+    }
+
+    public void OnRemoveButton()
+    {
+        Inventory.instance.RemoveItem(item);
+        ClearSlot();
+    }
+
+    public void UseItem()
+    {
+        Equipment isEquipment = item.GetComponent<Equipment>();
+
+        if (isEquipment != null)
+        {
+            EquipmentController.instance.Equip(isEquipment);
+
+            if (EquipmentController.instance.oldItem == null)
+            {
+                OnRemoveButton();
+            }
+        }
+
+        else
+        {
+            item.Use();
+            OnRemoveButton();
+        }
     }
 }

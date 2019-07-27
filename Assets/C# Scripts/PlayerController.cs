@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour {
 
@@ -8,8 +9,6 @@ public class PlayerController : MonoBehaviour {
     PlayerCombat combat;
     IEnumerator tryInteraction;
     public Interactable interactable;
-
-    public ItemPickup itemPickup;
 
     public RaycastHit GetMouseHit()
     {
@@ -33,13 +32,13 @@ public class PlayerController : MonoBehaviour {
         ItemPickup itemToPickup = interactable.GetComponent<ItemPickup>();
        if (itemToPickup != null)
         {
-            itemPickup.PickUp(itemToPickup);
+            itemToPickup.PickUp();
         }
         else 
         { 
                // TO DO: Use method that uses Interactable as a parameter.
             //Interactable.InteractWith(interactable);
-           Debug.Log("Interacting with something that is not an item");
+           Debug.Log("Interacting with something that can't be picked up.");
         }
         StopCoroutine(tryInteraction);
     }
@@ -50,10 +49,17 @@ public class PlayerController : MonoBehaviour {
         movement = FindObjectOfType<PlayerMovement>();
         combat = FindObjectOfType<PlayerCombat>();
         tryInteraction = FindObjectOfType<Interactable>().TryInteraction();
-        itemPickup = FindObjectOfType<ItemPickup>();
 	}
 	
 	void Update () {
+
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+            
+            // Благодарение на този ред не позволяваме на играчът да отчита кликовете върху инвентара
+            // като дестинация, към която да се запъти.
+        }
 
         Vector3 hitPoint = GetMouseHit().point;
 

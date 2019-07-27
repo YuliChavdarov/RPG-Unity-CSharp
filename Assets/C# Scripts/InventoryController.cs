@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour {
 
-    GameObject inventoryObject;
+    GameObject inventoryUI;
+    GameObject equipmentUI;
     Inventory inventory;
 
     public ItemSlot[] slots;
@@ -12,50 +13,34 @@ public class InventoryController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        inventoryObject = GetComponentInChildren<Inventory>().gameObject;
+        inventoryUI = GetComponentInChildren<Inventory>().gameObject;
+        equipmentUI = EquipmentController.instance.gameObject;
         inventory = Inventory.instance;
         slots = inventory.GetComponentsInChildren<ItemSlot>();
-
-
-        inventory.onItemChangedCallback += UpdateUI;
-
-        // По този начин subscribe-ваме delegate-a onItemChangedCallback към метод UpdateUI.
-        // Това означава, че всеки път когато извикаме onItemChangedCallback, ще се извършва този метод.
-        // Готиното е, че можем да subscribe-нем още методи към този delegate callback, и всеки път, когато
-        // бъде извикан, ще се извършват няколко метода едновременно.
-        // Друго полезно приложение на delegate е, че чрез него можем да задаваме методи като параметри на други методи.
     }
 	
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetButtonDown("Inventory"))
         {
-            ToggleInventory();
+            inventoryUI.SetActive(!inventoryUI.activeSelf);
+            equipmentUI.SetActive(!equipmentUI.activeSelf);
+            // Toggle-ва инвентара при цъкане на бутон с име Inventory, зададен от Edit > ProjectSettings > Input.
+            // В случая съм задал клавиш "i".
         }
     }
 
-    void UpdateUI()
+    public void AddItem(Item item, int slotIndexInventory)
     {
-        for (int i = 0; i < inventory.inventorySpace; i++)
-        {
-            if (i < inventory.items.Count) 
-            {
-                slots[i].AddItem(inventory.items[i]);
-            }
-            // Всеки път, когато се извика UpdateUI, настаняваме item-a в слот с номер,
-            // равен на броя на item-ите, които имаме в Inventory List<Item> items.
-        }
+         slots[slotIndexInventory].AddItem(item);
     }
 
-    public void ToggleInventory()
+    public void ReplaceItems(Item itemToEquip, Item oldItem, int slotIndexInventory)
     {
-        if (inventoryObject.activeSelf == false)
-        {
-            inventoryObject.SetActive(true);
-        }
-        else
-        {
-            inventoryObject.SetActive(false);
-        }
+        Debug.Log("iska da go sloji v slot nomer: " + slotIndexInventory);
+        inventory.items[slotIndexInventory] = oldItem;
+        slots[slotIndexInventory].AddItem(oldItem);
+        
+        
     }
 }

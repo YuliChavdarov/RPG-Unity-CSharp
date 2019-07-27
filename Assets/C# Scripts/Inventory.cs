@@ -14,57 +14,65 @@ public class Inventory : MonoBehaviour {
     // чрез Inventory.instance
 
 
-    public delegate void OnItemChanged();
+    public InventoryController inventoryController;
 
-    public OnItemChanged onItemChangedCallback;
+    public Item[] items;
 
-
-    public List<Item> items = new List<Item>();
+    public int firstFreeSlot;
 
     [SerializeField] public int inventorySpace;
 
 
-	// Use this for initialization
-	void Start () {
-        
+	void Start () 
+    {
+        inventoryController = FindObjectOfType<InventoryController>();
+        items = new Item[inventorySpace];
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
+
+    void Update()
+    {
+
+    }
 
     public bool TryPickup(Item item)
     {
-        if (items.Count < inventorySpace)
+        firstFreeSlot = 0;
+
+        for (int i = 0; i < inventorySpace; i++)
+        {
+            if (items[i] == null)
+            {
+                firstFreeSlot = i;
+                break;
+            }
+        }
+
+        if (firstFreeSlot < inventorySpace)
         {
             Debug.Log("Picking up " + item.name);
-            items.Add(item);
+            items[firstFreeSlot] = item;
 
-            if (onItemChangedCallback != null)
-                onItemChangedCallback.Invoke();
-            // Ако този callback има някаква функция, извикай го да я извърши.
+            inventoryController.AddItem(item, firstFreeSlot);
 
             return true;
         }
         else
         {
             return false;
-            // Ако няма място, върни false, т.е. кажи, че item-a не е бил взет.
+            // Ако няма място в инвентара, върни false - т.е. кажи, че item-a не е бил взет.
         }
         
     }
 
     public void RemoveItem(Item item)
     {
-        items.Remove(item);
-
-        if (onItemChangedCallback != null)
-            onItemChangedCallback.Invoke();
+        int slotOfItem = System.Array.IndexOf(items, item);
+        items[slotOfItem] = null;
     }
 
-
-    // Това, което следва да направя е да създам бутон, който да премахва item-ите от List<Item> items
-    // т.е. да го вържа към inventory.RemoveItem, a в InventoryController.UpdateUI() да извикам ItemSlot.RemoveItem().
-    // По този начин хем ще го премахна от list-a с item-и, хем ще го махна от UI-я на инвентара.
-    // В Unity editor-a имаше опция onclick да извиква еди кой си метод. Ще трябва да ги вържа чрез тази опция.
+    public void ReplaceItems(Item itemToEquip, Item oldItem)
+    {
+        int slotIndexInventory = System.Array.IndexOf(items, itemToEquip);
+        inventoryController.ReplaceItems(itemToEquip, oldItem, slotIndexInventory);
+    }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour {
 
-    [SerializeField] public float radius;
+    [SerializeField] public float radius = 2f;
     PlayerController controller;
 
     // Callback функция, която визуализира радиуса на gameobject-a с class Interactable
