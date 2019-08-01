@@ -7,14 +7,18 @@ public class Item : MonoBehaviour {
     [SerializeField]
     public ItemProperties properties;
 
-	void Start () {
-        //inventoryImage.sprite = properties.sprite;
-        //Debug.Log(inventoryImage.sprite);
-	}
-
-    public virtual void Use()
+    public void PickUp()
     {
-        Debug.Log("Using " + properties.name);
+        Item item = this.GetComponent<Item>();
+        bool wasPickedUp = Inventory.instance.TryPickup(item);
+        if (wasPickedUp == true)
+        {
+            item.gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("Your inventory is full!");
+        }
     }
-    //virtual означава, че може по-късно да бъде override-нат.
+
 }

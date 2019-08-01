@@ -21,11 +21,14 @@ public class ItemSlot : MonoBehaviour {
 
     public void AddItem(Item newItem)
     {
-        item = newItem;
+        if (newItem != null)
+        {
+            item = newItem;
 
-        icon.sprite = item.properties.sprite;
-        icon.enabled = true;
-        removeButton.interactable = true;
+            icon.sprite = item.properties.sprite;
+            icon.enabled = true;
+            removeButton.interactable = true;
+        }
     }
 
     public void ClearSlot()
@@ -37,6 +40,7 @@ public class ItemSlot : MonoBehaviour {
 
     public void OnRemoveButton()
     {
+        Inventory.instance.DropItem(item);
         Inventory.instance.RemoveItem(item);
         ClearSlot();
     }
@@ -51,14 +55,16 @@ public class ItemSlot : MonoBehaviour {
 
             if (EquipmentController.instance.oldItem == null)
             {
-                OnRemoveButton();
+                Inventory.instance.RemoveItem(item);
+                ClearSlot();
             }
         }
 
         else
         {
-            item.Use();
-            OnRemoveButton();
+            Debug.Log("Using " + item.properties.name);
+            Inventory.instance.RemoveItem(item);
+            ClearSlot();
         }
     }
 }

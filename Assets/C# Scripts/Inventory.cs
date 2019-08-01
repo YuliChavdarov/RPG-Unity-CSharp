@@ -14,18 +14,17 @@ public class Inventory : MonoBehaviour {
     // чрез Inventory.instance
 
 
-    public InventoryController inventoryController;
-
     public Item[] items;
+
+    public ItemSlot[] slots;
 
     public int firstFreeSlot;
 
     [SerializeField] public int inventorySpace;
 
-
 	void Start () 
     {
-        inventoryController = FindObjectOfType<InventoryController>();
+        slots = GetComponentsInChildren<ItemSlot>();
         items = new Item[inventorySpace];
 	}
 
@@ -52,7 +51,7 @@ public class Inventory : MonoBehaviour {
             Debug.Log("Picking up " + item.name);
             items[firstFreeSlot] = item;
 
-            inventoryController.AddItem(item, firstFreeSlot);
+            AddItem(item, firstFreeSlot);
 
             return true;
         }
@@ -64,6 +63,11 @@ public class Inventory : MonoBehaviour {
         
     }
 
+    public void AddItem(Item item, int slotIndexInventory)
+    {
+        slots[slotIndexInventory].AddItem(item);
+    }
+
     public void RemoveItem(Item item)
     {
         int slotOfItem = System.Array.IndexOf(items, item);
@@ -73,6 +77,22 @@ public class Inventory : MonoBehaviour {
     public void ReplaceItems(Item itemToEquip, Item oldItem)
     {
         int slotIndexInventory = System.Array.IndexOf(items, itemToEquip);
-        inventoryController.ReplaceItems(itemToEquip, oldItem, slotIndexInventory);
+        Debug.Log("iska da go sloji v slot nomer: " + slotIndexInventory);
+        items[slotIndexInventory] = oldItem;
+        slots[slotIndexInventory].AddItem(oldItem);
+    }
+
+    public void DropItem(Item item)
+    {
+        string itemName = item.name;
+
+        PlayerController player = FindObjectOfType<PlayerController>();
+        float yAxisOffset = 0.1f; 
+        Vector3 dropPosition = new Vector3(player.transform.position.x, player.transform.position.y + yAxisOffset, player.transform.position.z);
+        
+        GameObject droppedItem = Instantiate<GameObject>(item.gameObject, dropPosition, Quaternion.identity);
+        Destroy(item.gameObject);
+        droppedItem.name = itemName;
+        droppedItem.SetActive(true);
     }
 }

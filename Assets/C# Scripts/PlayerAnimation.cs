@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class PlayerAnimation : MonoBehaviour {
 
+
     NavMeshAgent playerAgent;
     Animator playerAnimator;
     float speedPercent;
@@ -15,6 +16,8 @@ public class PlayerAnimation : MonoBehaviour {
 	void Start () {
         playerAgent = GetComponent<NavMeshAgent>();
         playerAnimator = GetComponentInChildren<Animator>();
+
+        EquipmentController.instance.onEquipmentChanged += UpdateAvatar;
     }
 	
 	// Update is called once per frame
@@ -34,5 +37,32 @@ public class PlayerAnimation : MonoBehaviour {
         spellCastSpeed = 1 / fasterCastRate;
         playerAnimator.SetFloat("spellCastSpeed", spellCastSpeed, 0.1f, Time.deltaTime);
         //playerAnimator.Play("CastSpell");
+    }
+
+
+    void UpdateAvatar(Equipment itemToEquip, Equipment oldItem)
+    {
+        if (itemToEquip != null && itemToEquip.equipSlot == EquipmentSlot.Weapon)
+        {
+            playerAnimator.SetLayerWeight(1, 1);
+        // Sets weight to 1 on layer with index 1 (Right Hand).
+        }
+        if (oldItem != null && oldItem.equipSlot == EquipmentSlot.Weapon && itemToEquip == null)
+        {
+            playerAnimator.SetLayerWeight(1, 0);
+        // Releases right hand (weight = 0), if the player wants to unequip an item from the weapon slot.
+        }
+
+
+        if (itemToEquip != null && itemToEquip.equipSlot == EquipmentSlot.Shield)
+        {
+            playerAnimator.SetLayerWeight(2, 1);
+        // Sets weight to 1 on layer with index 2 (Left hand).
+        }
+        if (oldItem != null && oldItem.equipSlot == EquipmentSlot.Shield && itemToEquip == null)
+        {
+            playerAnimator.SetLayerWeight(2, 0);
+            // Releases left hand (weight = 0), if the player wants to unequip an item from the shield slot.
+        }
     }
 }
