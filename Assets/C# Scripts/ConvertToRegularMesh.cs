@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SkinnedMeshRenderer))]
 public class ConvertToRegularMesh : MonoBehaviour {
 
 
