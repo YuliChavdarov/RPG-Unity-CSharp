@@ -12,12 +12,15 @@ public class PlayerAnimation : MonoBehaviour {
     float spellCastSpeed;
     float fasterCastRate = 0.8f;
 
+    [SerializeField]
+    EquipmentController equipmentController;
+
 	// Use this for initialization
 	void Start () {
         playerAgent = GetComponent<NavMeshAgent>();
         playerAnimator = GetComponentInChildren<Animator>();
 
-        EquipmentController.instance.onEquipmentChanged += UpdateAvatar;
+        equipmentController.onEquipmentChanged += UpdateAvatar;
     }
 	
 	// Update is called once per frame

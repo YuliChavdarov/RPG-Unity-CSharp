@@ -10,7 +10,8 @@ public class ItemSlot : MonoBehaviour {
     // ще търси component Image - т.е. ItemIcon. Пускам ItemIcon, цъкам apply и готово. Много добре е измислено.
 
     public Button removeButton;
-
+    public Button switchButton;
+    public Button useButton;
     Item item;
 
 	// Use this for initialization
@@ -36,6 +37,7 @@ public class ItemSlot : MonoBehaviour {
         icon.sprite = null;
         icon.enabled = false;
         removeButton.interactable = false;
+        switchButton.interactable = false;
     }
 
     public void OnRemoveButton()
@@ -44,6 +46,28 @@ public class ItemSlot : MonoBehaviour {
         Inventory.instance.RemoveItem(item);
         ClearSlot();
     }
+    public void OnSwitchButton()
+    {
+        Inventory inventory = GetComponentInParent<Inventory>();
+        ChestController chest = GetComponentInParent<ChestController>();
+
+        if (inventory != null)
+        {
+            Inventory.instance.PutInChest(item);
+            Inventory.instance.RemoveItem(item);
+            ClearSlot();
+        }
+       
+        else if (chest != null)
+        {
+            ChestController.instance.ReturnToInventory(item);
+        }
+        else
+        {
+            Debug.Log("The item is not in the inventory, nor in the chest.");
+        }
+    }
+
 
     public void UseItem()
     {
@@ -67,4 +91,6 @@ public class ItemSlot : MonoBehaviour {
             ClearSlot();
         }
     }
+
+    
 }

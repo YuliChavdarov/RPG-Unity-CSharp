@@ -101,6 +101,11 @@ public class EquipmentController : MonoBehaviour
             onEquipmentChanged.Invoke(null, oldItem);
         }
 
+        if (UIController.instance.chestMode == true)
+        {
+            UIController.instance.onUpdateUICallback.Invoke();
+        }
+
         SkinnedMeshRenderer[] equippedItems = targetMesh.GetComponentsInChildren<SkinnedMeshRenderer>();
 
         for (int i = 1; i < equippedItems.Length; i++)

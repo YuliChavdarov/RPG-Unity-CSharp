@@ -53,6 +53,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\C# Scripts\Chest.cs" />
+     <Compile Include="Assets\C# Scripts\ChestController.cs" />
      <Compile Include="Assets\C# Scripts\ConvertToRegularMesh.cs" />
      <Compile Include="Assets\C# Scripts\Equipment.cs" />
      <Compile Include="Assets\C# Scripts\EquipmentController.cs" />
@@ -60,7 +62,6 @@
      <Compile Include="Assets\C# Scripts\FollowPlayer.cs" />
      <Compile Include="Assets\C# Scripts\Interactable.cs" />
      <Compile Include="Assets\C# Scripts\Inventory.cs" />
-     <Compile Include="Assets\C# Scripts\InventoryController.cs" />
      <Compile Include="Assets\C# Scripts\Item.cs" />
      <Compile Include="Assets\C# Scripts\ItemProperties.cs" />
      <Compile Include="Assets\C# Scripts\ItemSlot.cs" />
@@ -69,6 +70,7 @@
      <Compile Include="Assets\C# Scripts\PlayerController.cs" />
      <Compile Include="Assets\C# Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\C# Scripts\PlayerStats.cs" />
+     <Compile Include="Assets\C# Scripts\UIController.cs" />
      <Compile Include="Assets\Environment\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
      <Compile Include="Assets\Environment\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
      <Compile Include="Assets\Environment\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />

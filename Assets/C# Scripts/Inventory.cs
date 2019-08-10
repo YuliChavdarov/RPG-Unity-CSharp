@@ -30,29 +30,18 @@ public class Inventory : MonoBehaviour {
 
     void Update()
     {
-
     }
 
     public bool TryPickup(Item item)
     {
-        firstFreeSlot = 0;
-
-        for (int i = 0; i < inventorySpace; i++)
-        {
-            if (items[i] == null)
-            {
-                firstFreeSlot = i;
-                break;
-            }
-        }
+        firstFreeSlot = GetFirstFreeSlotIndex();
 
         if (firstFreeSlot < inventorySpace)
         {
             Debug.Log("Picking up " + item.name);
             items[firstFreeSlot] = item;
 
-            AddItem(item, firstFreeSlot);
-
+            slots[firstFreeSlot].AddItem(item);
             return true;
         }
         else
@@ -60,12 +49,19 @@ public class Inventory : MonoBehaviour {
             return false;
             // Ако няма място в инвентара, върни false - т.е. кажи, че item-a не е бил взет.
         }
-        
     }
 
-    public void AddItem(Item item, int slotIndexInventory)
+    public int GetFirstFreeSlotIndex()
     {
-        slots[slotIndexInventory].AddItem(item);
+        for (int i = 0; i < inventorySpace; i++)
+        {
+            if (items[i] == null)
+            {
+                return i;
+            }
+        }
+        return 0;
+        // fix later
     }
 
     public void RemoveItem(Item item)
@@ -94,5 +90,27 @@ public class Inventory : MonoBehaviour {
         Destroy(item.gameObject);
         droppedItem.name = itemName;
         droppedItem.SetActive(true);
+    }
+
+    public bool PutInChest(Item item)
+    {
+        firstFreeSlot = ChestController.instance.GetFirstFreeSlotIndex();
+
+        if (firstFreeSlot < ChestController.instance.chestSpace)
+        {
+            Debug.Log("Picking up " + item.name);
+            ChestController.instance.chestItems[firstFreeSlot] = item;
+
+            ChestController.instance.chestSlots[firstFreeSlot].AddItem(item);
+
+            UIController.instance.onUpdateUICallback.Invoke();
+
+            return true;
+        }
+        else
+        {
+            return false;
+            // Ако няма място в инвентара, върни false - т.е. кажи, че item-a не е бил взет.
+        }
     }
 }

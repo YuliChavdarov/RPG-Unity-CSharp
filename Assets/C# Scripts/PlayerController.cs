@@ -30,10 +30,19 @@ public class PlayerController : MonoBehaviour {
     {
        //  //Checks if the interactable can be picked up.
         Item itemToPickup = interactable.GetComponent<Item>();
+
+        Chest chest = interactable.GetComponent<Chest>();
+
         if (itemToPickup != null)
         {
             itemToPickup.PickUp();
         }
+
+        else if (chest != null)
+        {
+            UIController.instance.OpenChest();
+        }
+
         else
         {
             // TO DO: Use method that uses Interactable as a parameter.
