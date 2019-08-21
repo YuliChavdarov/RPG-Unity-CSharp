@@ -5,7 +5,6 @@ using UnityEngine;
 public class Interactable : MonoBehaviour {
 
     [SerializeField] public float radius = 2f;
-    PlayerController controller;
 
     // Callback функция, която визуализира радиуса на gameobject-a с class Interactable
     void OnDrawGizmosSelected()
@@ -16,7 +15,14 @@ public class Interactable : MonoBehaviour {
 
     void Start()
     {
-        controller = FindObjectOfType<PlayerController>();
+    }
+
+    public virtual void Interact()
+    {
+        Debug.Log("Interacting with " + this);
+
+        StopCoroutine("TryInteraction");
+        PlayerController.instance.interactionInProcess = false;
     }
 
     public IEnumerator TryInteraction()
@@ -32,19 +38,15 @@ public class Interactable : MonoBehaviour {
 
         while (true)
         {
-            Interactable objectToInteractWith = controller.interactable;
-
-            Collider[] objectsInRadius = Physics.OverlapSphere(objectToInteractWith.transform.position, radius);
+            Collider[] objectsInRadius = Physics.OverlapSphere(this.transform.position, radius);
             for (int i = objectsInRadius.Length - 1; i > 0; i--)
             {
                 if (objectsInRadius[i].name == "Player")
                 {
-                    controller.Interact(objectToInteractWith);
-                    continue;
+                    Interact();
                 }
             }
-               //Debug.Log("Daleche sum, she probvam pak sled 1 sekunda");
-               yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSecondsRealtime(0.5f);
         }
 
       // ESSSKEEETTIIIIT! Какво ли не пробвах, за да направя така, че обектът, за който се следи за интеракция
@@ -55,6 +57,6 @@ public class Interactable : MonoBehaviour {
       // Всичките мъки бяха разрешени, когато поставих objectToInteractWith в while цикъла.
       // Когато беше отвън, се взимаше веднъж, а след това се работеше само и единствено с нея.
       // Трябваше ми доста време да се сетя, а реално просто можеше да се замисля малко повече преди да действам.
-      // Сега като е в цикъла, interactable обекта се обновява всеки път, когато нов цикъл бъде викнат, т.е. през 1s.
+      // Сега като е в цикъла, interactable обекта се обновява всеки път, когато нов цикъл бъде викнат, т.е. през 0.5s.
     }
 }

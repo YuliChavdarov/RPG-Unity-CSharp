@@ -14,6 +14,6 @@ MonoBehaviour:
   name: Kaskata ot ECCC
   description: kade e mindi
   sprite: {fileID: 21300000, guid: 782821db437a2e14d9f0dd3a94cd0c88, type: 3}
-  healthBonus: 10
-  armorBonus: 20
-  damageBonus: 0
+  healthModifier: 0
+  armorModifier: 10
+  damageModifier: 5

@@ -14,6 +14,6 @@ MonoBehaviour:
   name: shielda na Leonidas
   description: nosish li go, nqmash barane
   sprite: {fileID: 21300000, guid: 8cb32ce2162ef9943ab29fc7e63dece5, type: 3}
-  healthBonus: 0
-  armorBonus: 100
-  damageBonus: 0
+  healthModifier: 0
+  armorModifier: 40
+  damageModifier: 0

@@ -14,6 +14,6 @@ MonoBehaviour:
   name: pantalonki ot VMZona
   description: mnou dubre stoqt
   sprite: {fileID: 21300000, guid: 759d949d55fac934ca613eaa7170e0a8, type: 3}
-  healthBonus: 10
-  armorBonus: 30
-  damageBonus: 0
+  healthModifier: 0
+  armorModifier: 20
+  damageModifier: 0
