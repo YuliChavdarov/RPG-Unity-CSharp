@@ -74,10 +74,12 @@
      <Compile Include="Assets\C# Scripts\Stats\Stat.cs" />
      <Compile Include="Assets\C# Scripts\UI\Chest.cs" />
      <Compile Include="Assets\C# Scripts\UI\ChestController.cs" />
+     <Compile Include="Assets\C# Scripts\UI\EnemyHealthBar.cs" />
+     <Compile Include="Assets\C# Scripts\UI\EnemyHealthBarController.cs" />
      <Compile Include="Assets\C# Scripts\UI\EquipmentController.cs" />
-     <Compile Include="Assets\C# Scripts\UI\HealthBar.cs" />
      <Compile Include="Assets\C# Scripts\UI\Inventory.cs" />
      <Compile Include="Assets\C# Scripts\UI\ItemSlot.cs" />
+     <Compile Include="Assets\C# Scripts\UI\PlayerHealthBar.cs" />
      <Compile Include="Assets\C# Scripts\UI\UIController.cs" />
      <Compile Include="Assets\Environment\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
      <Compile Include="Assets\Environment\PostProcessing\Runtime\Attributes\MinAttribute.cs" />

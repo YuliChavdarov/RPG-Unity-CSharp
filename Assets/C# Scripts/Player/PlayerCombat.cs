@@ -30,6 +30,8 @@ public class PlayerCombat : CharacterCombat {
         playerAnimator.SpellAnimation();
     }
 
+    public void Placehold(){}
+
     public void LaunchProjectile(RaycastHit hit, float attackTime)
     {
         Debug.DrawLine(hit.point, gameObject.transform.position, Color.red, 2f);
@@ -44,7 +46,7 @@ public class PlayerCombat : CharacterCombat {
             Attack(enemyStats);
         }
     }
-    public IEnumerator AttackAtMouse(RaycastHit hit)
+    public IEnumerator FireAtMouse(RaycastHit hit)
     {
         float startTime = Time.time;
         float attackTime = Time.deltaTime * 10f / attackSpeed;

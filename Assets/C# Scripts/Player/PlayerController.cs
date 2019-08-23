@@ -61,7 +61,9 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(1))
         {
-            StartCoroutine(combat.AttackAtMouse(GetMouseHit()));
+            //StartCoroutine(combat.FireAtMouse(GetMouseHit()));
+            //Useful if player has bow as a weapon.
+            combat.Placehold();
         }
 
         if (Input.GetKey(KeyCode.LeftShift))

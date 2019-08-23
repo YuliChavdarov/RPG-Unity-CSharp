@@ -25,12 +25,14 @@ public class UIController : MonoBehaviour {
     Inventory inventory;
     ChestController chestController;
     Chest chest;
+    EnemyHealthBarController enemyHealthBarController;
 
 	void Start () {
 
         inventory = Inventory.instance;
         chestController = ChestController.instance;
         chest = FindObjectOfType<Chest>();
+        enemyHealthBarController = GetComponentInChildren<EnemyHealthBarController>();
 
         inventoryUI.SetActive(false);
         equipmentUI.SetActive(false);
@@ -104,5 +106,15 @@ public class UIController : MonoBehaviour {
                 chestController.chestSlots[i].useButton.interactable = false;
             }
         }
+    }
+
+    public void HideEnemyHealthBar()
+    {
+        enemyHealthBarController.gameObject.SetActive(false);
+    }
+
+    public void ShowEnemyHealthBar()
+    {
+        enemyHealthBarController.gameObject.SetActive(true);
     }
 }
