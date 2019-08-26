@@ -78,20 +78,6 @@ public class Inventory : MonoBehaviour {
         slots[slotIndexInventory].AddItem(oldItem);
     }
 
-    public void DropItem(Item item)
-    {
-        string itemName = item.name;
-
-        PlayerController player = PlayerController.instance;
-        float yAxisOffset = 0.1f; 
-        Vector3 dropPosition = new Vector3(player.transform.position.x, player.transform.position.y + yAxisOffset, player.transform.position.z);
-        
-        GameObject droppedItem = Instantiate<GameObject>(item.gameObject, dropPosition, Quaternion.identity);
-        Destroy(item.gameObject);
-        droppedItem.name = itemName;
-        droppedItem.SetActive(true);
-    }
-
     public bool PutInChest(Item item)
     {
         firstFreeSlot = ChestController.instance.GetFirstFreeSlotIndex();

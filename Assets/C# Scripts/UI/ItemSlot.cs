@@ -42,7 +42,7 @@ public class ItemSlot : MonoBehaviour {
 
     public void OnRemoveButton()
     {
-        Inventory.instance.DropItem(item);
+        LootManager.instance.DropItem(item, PlayerController.instance.transform);
         Inventory.instance.RemoveItem(item);
         ClearSlot();
     }

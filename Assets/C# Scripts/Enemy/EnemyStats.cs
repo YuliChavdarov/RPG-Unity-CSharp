@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class EnemyStats : CharacterStats {
 
+    public int level;
+
     public override void Die()
     {
         // death animation
         // drop loot
+        LootManager.instance.DropLoot(level, this.transform);
 
+        UIController.instance.HideEnemyHealthBar();
         Destroy(gameObject);
     }
 }

@@ -10,11 +10,11 @@ public class CharacterAnimator : MonoBehaviour {
     protected CharacterCombat combat;
 
     protected float speedPercent;
-
     protected AnimatorOverrideController overrideController;
     protected AnimationClip[] currentAttackAnimationSet;
-    public AnimationClip replacableAttackAnimation;
     public AnimationClip[] defaultAttackAnimationSet;
+
+    
 
 	protected virtual void Start () {
         agent = GetComponent<NavMeshAgent>();
@@ -23,6 +23,8 @@ public class CharacterAnimator : MonoBehaviour {
 
         overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         animator.runtimeAnimatorController = overrideController;
+
+        
 
         currentAttackAnimationSet = defaultAttackAnimationSet;
 
@@ -47,9 +49,9 @@ public class CharacterAnimator : MonoBehaviour {
     {
         animator.SetTrigger("attack");
         int attackIndex = Random.Range(0, currentAttackAnimationSet.Length);
-        overrideController[replacableAttackAnimation.name] = currentAttackAnimationSet[attackIndex];
+        overrideController["AttackReplacable"] = currentAttackAnimationSet[attackIndex];
 
         // Когато някой character атакува, избираме random анимация от currentAnimationSet-а, която
-        // презаписваме на мястото на replacableAttackAnimation.
+        // се изпълнява вместо AttackReplacable.
     }
 }

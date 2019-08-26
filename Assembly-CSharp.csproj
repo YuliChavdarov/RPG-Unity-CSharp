@@ -56,6 +56,7 @@
      <Compile Include="Assets\C# Scripts\CharacterAnimator.cs" />
      <Compile Include="Assets\C# Scripts\CharacterCombat.cs" />
      <Compile Include="Assets\C# Scripts\Enemy\Enemy.cs" />
+     <Compile Include="Assets\C# Scripts\Enemy\EnemyAnimator.cs" />
      <Compile Include="Assets\C# Scripts\Enemy\EnemyController.cs" />
      <Compile Include="Assets\C# Scripts\Enemy\EnemyStats.cs" />
      <Compile Include="Assets\C# Scripts\Helper\ConvertToRegularMesh.cs" />
@@ -64,6 +65,7 @@
      <Compile Include="Assets\C# Scripts\Items\EquipmentProperties.cs" />
      <Compile Include="Assets\C# Scripts\Items\Item.cs" />
      <Compile Include="Assets\C# Scripts\Items\ItemProperties.cs" />
+     <Compile Include="Assets\C# Scripts\LootManager.cs" />
      <Compile Include="Assets\C# Scripts\Player\FollowPlayer.cs" />
      <Compile Include="Assets\C# Scripts\Player\PlayerAnimator.cs" />
      <Compile Include="Assets\C# Scripts\Player\PlayerCombat.cs" />
