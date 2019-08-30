@@ -11,8 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740182da66118ac4e97f17a88401bd2b, type: 3}
   m_Name: Boots
   m_EditorClassIdentifier: 
-  name: kojeni botushi bace
-  description: mnogo sa udobni
+  rarity: 0
+  name: Yeezita ot bitaka
+  description: kat or'ginalni sa
   sprite: {fileID: 21300000, guid: d807d6f6a7aee584c96290f53a327211, type: 3}
   healthModifier: 0
   armorModifier: 10

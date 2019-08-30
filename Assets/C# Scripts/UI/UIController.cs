@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
 
@@ -21,6 +22,9 @@ public class UIController : MonoBehaviour {
     GameObject equipmentUI;
     [SerializeField]
     GameObject chestUI;
+
+    [SerializeField]
+    GameObject tooltip;
 
     Inventory inventory;
     ChestController chestController;
@@ -50,6 +54,8 @@ public class UIController : MonoBehaviour {
     {
         if (Input.GetButtonDown("Inventory"))
         {
+            HideTooltip();
+
             if (chestMode == false)
             {
                 inventoryUI.SetActive(!inventoryUI.activeSelf);
@@ -116,5 +122,53 @@ public class UIController : MonoBehaviour {
     public void ShowEnemyHealthBar()
     {
         enemyHealthBarController.gameObject.SetActive(true);
+    }
+
+    public void ShowTooltip(ItemProperties properties, Vector3 position)
+    {
+        
+        tooltip.transform.position = position;
+
+        string title = string.Format("<color={0}>{1}</color>", properties.GetRarityColor(), properties.name);
+        string description = string.Format("<i>{0}</i>", properties.description);
+        tooltip.GetComponentInChildren<Text>().text = title + "\n" + description;
+        tooltip.SetActive(true);
+    }
+
+    // Overload for EquipmentProperties. (Simple early bind/polymorphism) 
+    // (Лол, чак сега научих, че overload-ването на методи се нарича early bind/polymorphism,
+    // а използването на inheritance и virtual/override - late bind.)
+
+    public void ShowTooltip(EquipmentProperties properties, Vector3 position)
+    {
+        string healthBonus = string.Empty;
+        string armorBonus = string.Empty;
+        string damageBonus = string.Empty;
+
+        if (properties.healthModifier != 0)
+        {
+            healthBonus = "\n" + "Health Bonus: " + properties.healthModifier;
+        }
+
+        if (properties.armorModifier != 0)
+        {
+            armorBonus = "\n" + "Armor Bonus: " + properties.armorModifier;
+        }
+
+        if (properties.damageModifier != 0)
+        {
+            damageBonus = "\n" + "Damage Bonus: " + properties.damageModifier;
+        }
+
+        string title = string.Format("<color={0}>{1}</color>", properties.GetRarityColor(), properties.name);
+        string description = string.Format("<i>{0}</i>", properties.description);
+        tooltip.GetComponentInChildren<Text>().text = title + "\n" + description + healthBonus + armorBonus + damageBonus;
+        tooltip.transform.position = position;
+        tooltip.SetActive(true);
+    }
+
+    public void HideTooltip()
+    {
+        tooltip.SetActive(false);
     }
 }

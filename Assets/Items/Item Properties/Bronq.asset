@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740182da66118ac4e97f17a88401bd2b, type: 3}
   m_Name: Bronq
   m_EditorClassIdentifier: 
+  rarity: 3
   name: Bronqta na Tyrael
   description: baq protectva
   sprite: {fileID: 21300000, guid: 6bdeb8aa5e165f246b583dba3a699aec, type: 3}

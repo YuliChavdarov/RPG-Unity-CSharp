@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class ItemSlot : MonoBehaviour {
+using UnityEngine.EventSystems;
+public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
     public Image icon;
     // Благодарение на prefab-овете в Unity не се налага да търся поотделно всеки ItemIcon и да го раздавам
@@ -34,6 +35,7 @@ public class ItemSlot : MonoBehaviour {
 
     public void ClearSlot()
     {
+        item = null;
         icon.sprite = null;
         icon.enabled = false;
         removeButton.interactable = false;
@@ -92,5 +94,31 @@ public class ItemSlot : MonoBehaviour {
         }
     }
 
-    
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Equipment equipment = null;
+
+        if (item != null)
+        {
+            equipment = item.GetComponent<Equipment>();
+        }
+
+        if (equipment != null)
+        {
+            UIController.instance.ShowTooltip(equipment.properties as EquipmentProperties, this.transform.position);
+
+            // Важно е да се cast-не (as EquipmentProperties), защото иначе го приема като ItemProperties,понеже е наследен от него,
+            // и си вика overload-a за ItemProperties, а не за EquipmentProperties.
+        }
+
+        else if (item != null)
+        {
+            UIController.instance.ShowTooltip(item.properties, this.transform.position);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UIController.instance.HideTooltip();
+    }
 }
