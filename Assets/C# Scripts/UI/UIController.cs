@@ -135,9 +135,10 @@ public class UIController : MonoBehaviour {
         tooltip.SetActive(true);
     }
 
-    // Overload for EquipmentProperties. (Simple early bind/polymorphism) 
+
+    // Overload for EquipmentProperties.
     // (Лол, чак сега научих, че overload-ването на методи се нарича early bind/polymorphism,
-    // а използването на inheritance и virtual/override - late bind.)
+    // а използването на inheritance и virtual/override - late bind)
 
     public void ShowTooltip(EquipmentProperties properties, Vector3 position)
     {

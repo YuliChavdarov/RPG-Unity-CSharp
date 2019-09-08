@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2764a089909f47342a949476e796262e, type: 3}
   m_Name: HealthPotion
   m_EditorClassIdentifier: 
+  rarity: 0
   name: Potion of Health
   description: Restores 20 HP
   sprite: {fileID: 21300000, guid: ab95ead3030d24d42870ee21a3e62b12, type: 3}

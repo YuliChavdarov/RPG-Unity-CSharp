@@ -52,13 +52,13 @@ public class PlayerAnimator : CharacterAnimator {
                 currentAttackAnimationSet = weaponAnimationsDict[itemToEquip];
             }
             // Когато equip-ваме оръжие, проверяваме дали се съдържа в речника с анимации. Ако го има,
-            // присвояваме съответстващият му масив от анимации на currentAnimationSet.
+            // присвояваме на currentAnimationSet съответстващия му масив от анимации.
         
         }
         if (oldItem != null && oldItem.equipSlot == EquipmentSlot.Weapon && itemToEquip == null)
         {
             animator.SetLayerWeight(1, 0);
-        // Releases right hand (weight = 0), if the player wants to unequip an item from the weapon slot.
+            // Releases right hand (weight = 0), if the player wants to unequip an item from the weapon slot.
         }
 
 

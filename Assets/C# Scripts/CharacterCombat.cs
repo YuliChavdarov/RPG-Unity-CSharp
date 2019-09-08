@@ -14,7 +14,8 @@ public class CharacterCombat : MonoBehaviour {
 
     public bool inCombat { get; private set; }
 
-    public event System.Action OnAttack;
+    public delegate void OnAttack();
+    public OnAttack onAttack;
     // Basically delegate, който е void и не приема параметри. Ще го използвам като callback, който да вика
     // анимацията на character-a.
 
@@ -36,9 +37,9 @@ public class CharacterCombat : MonoBehaviour {
         if (attackCooldown <= 0)
         {
             StartCoroutine(DealDamage(targetStats, attackDelay));
-            if (OnAttack != null)
+            if (onAttack != null)
             {
-                OnAttack();
+                onAttack();
             }
             attackCooldown = 1f / attackSpeed;
             inCombat = true;

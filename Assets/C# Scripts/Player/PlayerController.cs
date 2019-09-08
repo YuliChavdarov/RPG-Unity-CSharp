@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour {
         // нито да бъде наследяван. Struct e value type, a class e reference type.
 
         // Създаваме лъч, който сочи от main camera-та до позицията на мишката в момента на извикване на метода.
-        // После използваме методът Physics.Raycast, който проверява дали лъчът ray е уцелил нещо, което има collider.
+        // После използваме методът Physics.Raycast, който проверява дали лъчът е уцелил нещо, което има collider.
         // Ако е уцелил, връща информация за този collision и я съхранява в променливата hit от тип RaycastHit.
     }
 
@@ -61,15 +61,21 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(1))
         {
-            //StartCoroutine(combat.FireAtMouse(GetMouseHit()));
+            StartCoroutine(combat.FireAtMouse(GetMouseHit()));
             //Useful if player has bow as a weapon.
-            combat.Placehold();
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            movement.StopMoving(0.1f);
+            movement.StopMoving();
             movement.LookAt(hitPoint);
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                combat.onAttack();
+                // Plays attack animation no matter what.
+            }
+
         }
 
         if (Input.GetMouseButtonDown(0))

@@ -32,12 +32,10 @@ public class PlayerMovement : MonoBehaviour {
         playerAgent.SetDestination(destination);
     }
 
-    public IEnumerator StopMoving(float wantedTime)
+    public void StopMoving()
     {
-        playerAgent.isStopped = true;
-        yield return new WaitForSeconds(wantedTime * 200);
-        playerAgent.isStopped = false;
-        
+        focus = null;
+        MoveToDestination(playerAgent.transform.position);
     }
 
     public void SetFocus(Interactable newFocus)

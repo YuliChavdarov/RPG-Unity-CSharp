@@ -48,6 +48,16 @@ public class PlayerCombat : CharacterCombat {
     }
     public IEnumerator FireAtMouse(RaycastHit hit)
     {
+        Equipment weapon = EquipmentController.instance.currentEquipment[2];
+        if(weapon == null)
+        {
+            yield break;
+        }
+        if (weapon.name != "Bow")
+        {
+            yield break;
+        }
+
         float startTime = Time.time;
         float attackTime = Time.deltaTime * 10f / attackSpeed;
 
@@ -55,6 +65,7 @@ public class PlayerCombat : CharacterCombat {
         {
             //movement.StopMoving(0.01f);
             movement.LookAt(hit.point);
+            movement.StopMoving();
             yield return null;
         }
         LaunchProjectile(hit, attackTime);

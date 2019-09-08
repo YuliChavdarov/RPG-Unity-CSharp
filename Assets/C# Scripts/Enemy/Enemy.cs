@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterStats))]
+[RequireComponent(typeof(EnemyStats))]
+[RequireComponent(typeof(EnemyController))]
+[RequireComponent(typeof(CharacterCombat))]
+[RequireComponent(typeof(EnemyAnimator))]
 public class Enemy : Interactable {
 
     PlayerCombat playerCombat;

@@ -13,7 +13,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Button removeButton;
     public Button switchButton;
     public Button useButton;
-    Item item;
+    public Item item;
 
 	// Use this for initialization
 	void Start () {
@@ -86,12 +86,20 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             }
         }
 
+        else if (item.properties.name == "Potion of Health")
+        {
+            FindObjectOfType<PlayerStats>().Heal(20);
+            Inventory.instance.RemoveItem(item);
+            ClearSlot();
+        }
+
         else
         {
             Debug.Log("Using " + item.properties.name);
             Inventory.instance.RemoveItem(item);
             ClearSlot();
         }
+        UIController.instance.HideTooltip();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

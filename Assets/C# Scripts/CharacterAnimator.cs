@@ -11,7 +11,7 @@ public class CharacterAnimator : MonoBehaviour {
 
     protected float speedPercent;
     protected AnimatorOverrideController overrideController;
-    protected AnimationClip[] currentAttackAnimationSet;
+    public AnimationClip[] currentAttackAnimationSet;
     public AnimationClip[] defaultAttackAnimationSet;
 
     
@@ -28,7 +28,7 @@ public class CharacterAnimator : MonoBehaviour {
 
         currentAttackAnimationSet = defaultAttackAnimationSet;
 
-        combat.OnAttack += PlayAttackAnimation;
+        combat.onAttack += PlayAttackAnimation;
 	}
 
     protected virtual void Update()
@@ -47,9 +47,9 @@ public class CharacterAnimator : MonoBehaviour {
 
     protected virtual void PlayAttackAnimation()
     {
-        animator.SetTrigger("attack");
         int attackIndex = Random.Range(0, currentAttackAnimationSet.Length);
         overrideController["AttackReplacable"] = currentAttackAnimationSet[attackIndex];
+        animator.SetTrigger("attack");
 
         // Когато някой character атакува, избираме random анимация от currentAnimationSet-а, която
         // се изпълнява вместо AttackReplacable.
