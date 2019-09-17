@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class PlayerCombat : CharacterCombat {
 
     PlayerAnimator playerAnimator;
     PlayerMovement movement;
+
+    [SerializeField]
+    GameObject arrow;
 
 	// Use this for initialization
 	void Start () {
@@ -30,11 +32,21 @@ public class PlayerCombat : CharacterCombat {
         playerAnimator.SpellAnimation();
     }
 
-    public void Placehold(){}
-
     public void LaunchProjectile(RaycastHit hit, float attackTime)
     {
         Debug.DrawLine(hit.point, gameObject.transform.position, Color.red, 2f);
+
+        GameObject arrowLaunched = Instantiate<GameObject>(arrow, this.transform.position + Vector3.up, Quaternion.identity);
+
+        Rigidbody arrowBody = arrowLaunched.GetComponent<Rigidbody>();
+
+        Vector3 direction = hit.point - this.transform.position;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        arrowLaunched.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        arrowBody.velocity = direction.normalized * attackSpeed * 10;
 
        // movement.StopMoving(attackTime);
 
@@ -46,6 +58,7 @@ public class PlayerCombat : CharacterCombat {
             Attack(enemyStats);
         }
     }
+
     public IEnumerator FireAtMouse(RaycastHit hit)
     {
         Equipment weapon = EquipmentController.instance.currentEquipment[2];

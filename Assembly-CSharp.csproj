@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\C# Scripts\Arrow.cs" />
      <Compile Include="Assets\C# Scripts\CharacterAnimator.cs" />
      <Compile Include="Assets\C# Scripts\CharacterCombat.cs" />
      <Compile Include="Assets\C# Scripts\Enemy\Enemy.cs" />

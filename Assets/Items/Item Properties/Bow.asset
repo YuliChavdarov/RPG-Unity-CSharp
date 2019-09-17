@@ -17,4 +17,4 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 2dfb1c57ee7e2474ba8c29841bbc716a, type: 3}
   healthModifier: 0
   armorModifier: 0
-  damageModifier: 40
+  damageModifier: 5
