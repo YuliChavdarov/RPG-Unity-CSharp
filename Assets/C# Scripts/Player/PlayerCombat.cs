@@ -36,7 +36,9 @@ public class PlayerCombat : CharacterCombat {
     {
         Debug.DrawLine(hit.point, gameObject.transform.position, Color.red, 2f);
 
-        GameObject arrowLaunched = Instantiate<GameObject>(arrow, this.transform.position + Vector3.up, Quaternion.identity);
+        GameObject arrowLaunched = Instantiate<GameObject>(arrow, this.transform.position + new Vector3(0, 0.7f, 0f), Quaternion.identity);
+
+        Physics.IgnoreCollision(arrowLaunched.GetComponent<CapsuleCollider>(), this.GetComponent<CapsuleCollider>());
 
         Rigidbody arrowBody = arrowLaunched.GetComponent<Rigidbody>();
 
@@ -50,13 +52,19 @@ public class PlayerCombat : CharacterCombat {
 
        // movement.StopMoving(attackTime);
 
-        Enemy enemy = hit.collider.GetComponent<Enemy>();
+        arrowLaunched.GetComponent<Arrow>().SetShooter(this);
 
-        if (enemy != null)
-        {
-            CharacterStats enemyStats = enemy.GetComponent<CharacterStats>();
-            Attack(enemyStats);
-        }
+        //Enemy enemy = hit.collider.GetComponent<Enemy>();
+
+        //if (enemy != null)
+        //{
+        //    CharacterStats enemyStats = enemy.GetComponent<CharacterStats>();
+        //    Attack(enemyStats);
+        //}
+        //else
+        //{
+        //    Destroy(arrowLaunched, 3f);
+        //}
     }
 
     public IEnumerator FireAtMouse(RaycastHit hit)

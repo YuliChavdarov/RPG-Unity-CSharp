@@ -78,7 +78,6 @@
      <Compile Include="Assets\C# Scripts\UI\Chest.cs" />
      <Compile Include="Assets\C# Scripts\UI\ChestController.cs" />
      <Compile Include="Assets\C# Scripts\UI\EnemyHealthBar.cs" />
-     <Compile Include="Assets\C# Scripts\UI\EnemyHealthBarController.cs" />
      <Compile Include="Assets\C# Scripts\UI\EquipmentController.cs" />
      <Compile Include="Assets\C# Scripts\UI\Inventory.cs" />
      <Compile Include="Assets\C# Scripts\UI\ItemSlot.cs" />

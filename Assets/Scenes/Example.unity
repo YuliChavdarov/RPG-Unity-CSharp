@@ -2450,7 +2450,6 @@ GameObject:
   - component: {fileID: 239757596}
   - component: {fileID: 239757595}
   - component: {fileID: 239757594}
-  - component: {fileID: 239757597}
   m_Layer: 5
   m_Name: EnemyHealthBarUI
   m_TagString: Untagged
@@ -2534,17 +2533,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 19
   m_TargetDisplay: 0
---- !u!114 &239757597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 239757592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7126878d61f14e44a0f1e3b4f07abf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &247523123
 GameObject:
   m_ObjectHideFlags: 0
@@ -8330,6 +8318,7 @@ MonoBehaviour:
   equipmentUI: {fileID: 1552703113}
   chestUI: {fileID: 1800902095}
   tooltip: {fileID: 254235010}
+  enemyHealthBarController: {fileID: 239757592}
 --- !u!1 &938294218
 GameObject:
   m_ObjectHideFlags: 0

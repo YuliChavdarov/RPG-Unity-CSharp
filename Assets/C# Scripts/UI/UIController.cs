@@ -26,17 +26,18 @@ public class UIController : MonoBehaviour {
     [SerializeField]
     GameObject tooltip;
 
+    [SerializeField]
+    GameObject enemyHealthBarController;
+
     Inventory inventory;
     ChestController chestController;
     Chest chest;
-    EnemyHealthBarController enemyHealthBarController;
 
 	void Start () {
 
         inventory = Inventory.instance;
         chestController = ChestController.instance;
         chest = FindObjectOfType<Chest>();
-        enemyHealthBarController = GetComponentInChildren<EnemyHealthBarController>();
 
         inventoryUI.SetActive(false);
         equipmentUI.SetActive(false);
@@ -116,12 +117,12 @@ public class UIController : MonoBehaviour {
 
     public void HideEnemyHealthBar()
     {
-        enemyHealthBarController.gameObject.SetActive(false);
+        enemyHealthBarController.SetActive(false);
     }
 
     public void ShowEnemyHealthBar()
     {
-        enemyHealthBarController.gameObject.SetActive(true);
+        enemyHealthBarController.SetActive(true);
     }
 
     public void ShowTooltip(ItemProperties properties, Vector3 position)
