@@ -7,6 +7,13 @@ public class PlayerMovement : MonoBehaviour {
     NavMeshAgent playerAgent;
     Interactable focus;
 
+    public static PlayerMovement instance;
+
+    void Awake()
+    {
+        instance = this;
+    }
+
 	// Use this for initialization
 	void Start () {
         playerAgent = gameObject.GetComponent<NavMeshAgent>();

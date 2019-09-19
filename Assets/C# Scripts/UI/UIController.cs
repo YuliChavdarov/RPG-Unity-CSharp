@@ -29,6 +29,9 @@ public class UIController : MonoBehaviour {
     [SerializeField]
     GameObject enemyHealthBarController;
 
+    [SerializeField]
+    GameObject teleportPopup;
+
     Inventory inventory;
     ChestController chestController;
     Chest chest;
@@ -172,5 +175,15 @@ public class UIController : MonoBehaviour {
     public void HideTooltip()
     {
         tooltip.SetActive(false);
+    }
+
+    public void ShowTeleportPopup()
+    {
+        teleportPopup.SetActive(true);
+    }
+
+    public void HideTeleportPopup()
+    {
+        teleportPopup.SetActive(false);
     }
 }

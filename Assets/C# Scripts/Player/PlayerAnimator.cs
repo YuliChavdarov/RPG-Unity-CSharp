@@ -49,7 +49,7 @@ public class PlayerAnimator : CharacterAnimator {
 
             if (weaponAnimationsDict.ContainsKey(itemToEquip))
             {
-                currentAttackAnimationSet = weaponAnimationsDict[itemToEquip];
+                AttackAnimationSet = weaponAnimationsDict[itemToEquip];
             }
             // Когато equip-ваме оръжие, проверяваме дали се съдържа в речника с анимации. Ако го има,
             // присвояваме на currentAnimationSet съответстващия му масив от анимации.

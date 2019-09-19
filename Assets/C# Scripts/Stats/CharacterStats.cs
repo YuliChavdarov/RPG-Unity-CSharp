@@ -18,11 +18,6 @@ public class CharacterStats : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            TakeDamage(100);
-        }
-
         if (Input.GetKeyDown(KeyCode.H))
         {
             Heal(20);

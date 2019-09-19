@@ -23,6 +23,7 @@ public class Interactable : MonoBehaviour {
 
         StopCoroutine("TryInteraction");
         PlayerController.instance.interactionInProcess = false;
+        PlayerMovement.instance.RemoveFocus();
     }
 
     public IEnumerator TryInteraction()

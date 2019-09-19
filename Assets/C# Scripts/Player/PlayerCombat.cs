@@ -32,11 +32,11 @@ public class PlayerCombat : CharacterCombat {
         playerAnimator.SpellAnimation();
     }
 
-    public void LaunchProjectile(RaycastHit hit, float attackTime)
+    public void ShootArrow(RaycastHit hit, float attackTime)
     {
         Debug.DrawLine(hit.point, gameObject.transform.position, Color.red, 2f);
 
-        GameObject arrowLaunched = Instantiate<GameObject>(arrow, this.transform.position + new Vector3(0, 0.7f, 0f), Quaternion.identity);
+        GameObject arrowLaunched = Instantiate<GameObject>(arrow, this.transform.position + new Vector3(0, 0.3f, 0f), Quaternion.identity);
 
         Physics.IgnoreCollision(arrowLaunched.GetComponent<CapsuleCollider>(), this.GetComponent<CapsuleCollider>());
 
@@ -89,7 +89,7 @@ public class PlayerCombat : CharacterCombat {
             movement.StopMoving();
             yield return null;
         }
-        LaunchProjectile(hit, attackTime);
+        ShootArrow(hit, attackTime);
     }
     // Това е Coroutine, който кара играча да погледне към мястото на цъкане на десен бутон, след което да стреля.
     // Времето, за което това се случва е attackTime. То се изчислява по формула = 10 фрейма / attackSpeed.
