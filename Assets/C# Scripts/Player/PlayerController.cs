@@ -73,7 +73,6 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetMouseButtonDown(0))
             {
                 combat.onAttack();
-                // Plays attack animation no matter what.
             }
 
         }

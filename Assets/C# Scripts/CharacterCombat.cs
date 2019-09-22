@@ -7,12 +7,11 @@ using UnityEngine;
 public class CharacterCombat : MonoBehaviour {
 
     public float attackSpeed = 1f;
-    private float attackCooldown = 0f;
-    private float attackDelay = 0.6f;
-    private float combatCooldown = 5f;
-    private float lastAttackTime;
-
-    public bool inCombat { get; private set; }
+    protected float attackCooldown = 0f;
+    protected float attackDelay = 0.6f;
+    protected float combatCooldown = 5f;
+    protected float lastAttackTime;
+    public bool inCombat { get; protected set; }
 
     public delegate void OnAttack();
     public OnAttack onAttack;
@@ -32,11 +31,14 @@ public class CharacterCombat : MonoBehaviour {
             inCombat = false;
         }
     }
-    public void Attack(CharacterStats targetStats)
+    public virtual void Attack(CharacterStats targetStats)
     {
         if (attackCooldown <= 0)
         {
             StartCoroutine(DealDamage(targetStats, attackDelay));
+
+            float attackTime = Time.deltaTime * 10f / attackSpeed;
+
             if (onAttack != null)
             {
                 onAttack();
@@ -47,7 +49,7 @@ public class CharacterCombat : MonoBehaviour {
         }
     }
 
-    IEnumerator DealDamage(CharacterStats targetStats, float delay)
+    protected IEnumerator DealDamage(CharacterStats targetStats, float delay)
     {
         yield return new WaitForSeconds(delay);
 

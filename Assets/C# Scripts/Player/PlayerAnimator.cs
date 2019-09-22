@@ -5,6 +5,18 @@ using UnityEngine.AI;
 
 public class PlayerAnimator : CharacterAnimator {
 
+    [System.Serializable]
+    public struct WeaponAnimations
+    {
+        public Equipment weapon;
+        public AnimationClip[] clips;
+    }
+    // Struct, който държи анимациите, свързани със съответното оръжие. Самите анимации се вкарват в масива
+    // директно от Unity editor-a.
+    // Всички WeaponAnimations от своя страна се държат от речник weaponAnimationsDict, който има ключ
+    // от тип Equipment (оръжието), и стойност - масив от анимации, съответстващи на това оръжие.
+
+
     public WeaponAnimations[] weaponAnimations;
 
     Dictionary<Equipment, AnimationClip[]> weaponAnimationsDict;
@@ -15,11 +27,14 @@ public class PlayerAnimator : CharacterAnimator {
     [SerializeField]
     EquipmentController equipmentController;
 
+    [SerializeField]
+    private AnimationClip[] defaultAttackSet;
 	// Use this for initialization
 	protected override void Start () 
     {
         base.Start();
         equipmentController.onEquipmentChanged += UpdateAvatar;
+        AttackAnimationSet = defaultAttackSet;
 
         weaponAnimationsDict = new Dictionary<Equipment, AnimationClip[]>();
         foreach (WeaponAnimations a in weaponAnimations)
@@ -71,16 +86,10 @@ public class PlayerAnimator : CharacterAnimator {
             animator.SetLayerWeight(2, 0);
             // Releases left hand (weight = 0), if the player wants to unequip an item from the shield slot.
         }
-    }
 
-    [System.Serializable]
-    public struct WeaponAnimations
-    {
-        public Equipment weapon;
-        public AnimationClip[] clips;
+        if (itemToEquip == null)
+        {
+            AttackAnimationSet = defaultAttackSet;
+        }
     }
-    // Struct, който държи анимациите, свързани със съответното оръжие. Самите анимации се вкарват в масива
-    // директно от Unity editor-a.
-    // Всички WeaponAnimations от своя страна се държат от речник weaponAnimationsDict, който има ключ
-    // от тип Equipment (оръжието), и стойност - масив от анимации, съответстващи на това оръжие.
 }

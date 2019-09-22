@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Portal : Interactable {
 
@@ -21,15 +22,7 @@ public class Portal : Interactable {
 	}
 	
 	// Update is called once per frame
-	void Update () 
-    {
+	void Update () {
 		
 	}
-
-
-    public void TeleportToTristram()
-    {
-        UIController.instance.HideTeleportPopup();
-        Debug.Log("Teleporting to Tristram");
-    }
 }

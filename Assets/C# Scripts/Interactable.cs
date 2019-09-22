@@ -6,7 +6,6 @@ public class Interactable : MonoBehaviour {
 
     [SerializeField] public float radius = 2f;
 
-    // Callback функция, която визуализира радиуса на gameobject-a с class Interactable
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -16,7 +15,6 @@ public class Interactable : MonoBehaviour {
     void Start()
     {
     }
-
     public virtual void Interact()
     {
         Debug.Log("Interacting with " + this);

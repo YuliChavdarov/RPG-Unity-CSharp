@@ -24,7 +24,6 @@ public class PlayerCombat : CharacterCombat {
         // attack cooldown-a.
         // tl;dr: Винаги при наследяване на класове проверявай Update методите и в parent-a, и в child-a.
     }
-
     public void CastSpell(Vector3 direction)
     {
         // Placeholder.
@@ -32,9 +31,9 @@ public class PlayerCombat : CharacterCombat {
         playerAnimator.SpellAnimation();
     }
 
-    public void ShootArrow(RaycastHit hit, float attackTime)
+    public void ShootArrow(Vector3 hitPoint)
     {
-        Debug.DrawLine(hit.point, gameObject.transform.position, Color.red, 2f);
+        Debug.DrawLine(hitPoint, gameObject.transform.position, Color.red, 2f);
 
         GameObject arrowLaunched = Instantiate<GameObject>(arrow, this.transform.position + new Vector3(0, 0.3f, 0f), Quaternion.identity);
 
@@ -42,29 +41,15 @@ public class PlayerCombat : CharacterCombat {
 
         Rigidbody arrowBody = arrowLaunched.GetComponent<Rigidbody>();
 
-        Vector3 direction = hit.point - this.transform.position;
+        Vector3 direction = hitPoint - this.transform.position;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         arrowLaunched.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        arrowBody.velocity = direction.normalized * attackSpeed * 10;
-
-       // movement.StopMoving(attackTime);
+        arrowBody.velocity = direction.normalized * 10;
 
         arrowLaunched.GetComponent<Arrow>().SetShooter(this);
-
-        //Enemy enemy = hit.collider.GetComponent<Enemy>();
-
-        //if (enemy != null)
-        //{
-        //    CharacterStats enemyStats = enemy.GetComponent<CharacterStats>();
-        //    Attack(enemyStats);
-        //}
-        //else
-        //{
-        //    Destroy(arrowLaunched, 3f);
-        //}
     }
 
     public IEnumerator FireAtMouse(RaycastHit hit)
@@ -79,17 +64,27 @@ public class PlayerCombat : CharacterCombat {
             yield break;
         }
 
+        if (attackCooldown <= 0)
+        {
+
         float startTime = Time.time;
         float attackTime = Time.deltaTime * 10f / attackSpeed;
 
-        while (Time.time - startTime < attackTime)
-        {
-            //movement.StopMoving(0.01f);
-            movement.LookAt(hit.point);
-            movement.StopMoving();
-            yield return null;
+        StartCoroutine(movement.StopMoving(attackTime));
+
+        StartCoroutine(movement.LookAt(hit.point, attackTime));
+        //while (Time.time - startTime < attackTime)
+        //{
+        //    movement.LookAt(hit.point);
+        //    yield return null;
+        //}
+
+        attackCooldown = 1f / attackSpeed;
+        inCombat = true;
+        lastAttackTime = Time.time;
+
+        ShootArrow(hit.point);
         }
-        ShootArrow(hit, attackTime);
     }
     // Това е Coroutine, който кара играча да погледне към мястото на цъкане на десен бутон, след което да стреля.
     // Времето, за което това се случва е attackTime. То се изчислява по формула = 10 фрейма / attackSpeed.
@@ -97,4 +92,26 @@ public class PlayerCombat : CharacterCombat {
     // следователно играчът ще атакува по-бързо.
     // След изтичане на attackTime се извиква метод LaunchProjectile, който изстрелва projectile към целта.
     // Така сме сигурни, че играчът не може да стреля с гръб към целта.
+
+    public override void Attack(CharacterStats targetStats)
+    {
+        if (attackCooldown <= 0)
+        {
+            StartCoroutine(DealDamage(targetStats, attackDelay));
+
+            float attackTime = Time.deltaTime * 10f / attackSpeed;
+
+            float startTime = Time.time;
+
+            StartCoroutine(movement.LookAt(targetStats.transform.position,attackTime));
+
+            if (onAttack != null)
+            {
+                onAttack();
+            }
+            attackCooldown = 1f / attackSpeed;
+            inCombat = true;
+            lastAttackTime = Time.time;
+        }
+    }
 }
