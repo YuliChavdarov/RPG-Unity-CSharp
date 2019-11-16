@@ -37,8 +37,6 @@ public class CharacterCombat : MonoBehaviour {
         {
             StartCoroutine(DealDamage(targetStats, attackDelay));
 
-            float attackTime = Time.deltaTime * 10f / attackSpeed;
-
             if (onAttack != null)
             {
                 onAttack();

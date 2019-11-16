@@ -5,14 +5,11 @@ using UnityEngine.AI;
 
 public class PortalManager : MonoBehaviour {
 
-
-    public Transform forestPortal;
-    public Transform tristramPortal;
-
     GameObject player;
+
 	// Use this for initialization
 	void Start () {
-		
+        player = PlayerController.instance.gameObject;
 	}
 	
 	// Update is called once per frame
@@ -20,14 +17,14 @@ public class PortalManager : MonoBehaviour {
 		
 	}
 
-    public void TeleportToTristram()
+    public void TeleportTo(Portal destinationPortal)
     {
         UIController.instance.HideTeleportPopup();
-        Debug.Log("Teleporting to Tristram");
+        Debug.Log("Teleporting to " + destinationPortal.name);
         player = PlayerController.instance.gameObject;
         NavMeshAgent agent = player.GetComponent<NavMeshAgent>();
         agent.enabled = false;
-        player.transform.position = tristramPortal.position;
+        player.transform.position = destinationPortal.transform.position;
         agent.enabled = true;
     }
 }

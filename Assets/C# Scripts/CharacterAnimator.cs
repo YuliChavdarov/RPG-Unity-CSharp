@@ -45,10 +45,12 @@ public class CharacterAnimator : MonoBehaviour {
     {
         int attackIndex = Random.Range(0, AttackAnimationSet.Length);
         overrideController["AttackReplacable"] = AttackAnimationSet[attackIndex];
+        animator.SetFloat("attackSpeed", combat.attackSpeed);
         animator.SetTrigger("attack");
 
         // Когато някой character атакува, избираме random анимация от currentAnimationSet-а, която
         // се изпълнява вместо AttackReplacable.
+        // Анимацията се изпълнява със скорост, зависеща от attackSpeed-a на съответния character.
     }
 
     public virtual void PlayDeathAnimation()

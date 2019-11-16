@@ -103,6 +103,7 @@ public class PlayerCombat : CharacterCombat {
 
             float startTime = Time.time;
 
+            StartCoroutine(movement.StopMoving(attackTime));
             StartCoroutine(movement.LookAt(targetStats.transform.position,attackTime));
 
             if (onAttack != null)

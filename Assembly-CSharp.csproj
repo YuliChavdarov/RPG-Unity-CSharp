@@ -162,6 +162,7 @@
      <None Include="Assets\Environment\PostProcessing\Resources\Shaders\TAA.shader" />
      <None Include="Assets\Environment\PostProcessing\Resources\Shaders\EyeHistogram.compute" />
      <None Include="Assets\Environment\PostProcessing\Resources\Shaders\TAA.cginc" />
+     <None Include="Assets\Characters\Chaos Knight Warrior\readMe.txt" />
      <None Include="Assets\Environment\PostProcessing\Resources\Shaders\EyeAdaptation.cginc" />
      <None Include="Assets\Environment\PostProcessing\Resources\Shaders\GrainGen.shader" />
      <None Include="Assets\Environment\PostProcessing\Resources\Shaders\FXAA.shader" />
